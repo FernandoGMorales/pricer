@@ -1,24 +1,28 @@
 package server.prizypricer.domain;
 
+import javax.persistence.*;
 import java.util.Set;
 
 /**
  * Created by Fernando G. Morales on 6/12/15.
  */
+@Entity
 public class Store implements BusinessDomain {
 
-    private Integer id;
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private Long id;
     private String name;
     private String description;
     private String Adress;
     private Set<PhoneNumber> phoneNumbers;
     private Set<Email> emails;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
