@@ -1,26 +1,36 @@
 package server.prizypricer.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
 /**
  * Created by Fernando G. Morales on 6/12/15.
  */
-@Entity
+@Entity(name = "price")
 public class Price implements BusinessDomain {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
+
+    @ManyToOne(optional=false)
+    @JoinColumn(name="id", nullable=false, updatable=false)
     private Product product;
+
+    @ManyToOne(optional=false)
+    @JoinColumn(name="id", nullable=false, updatable=false)
     private Store store;
+
     private Date date;
+
     private BigDecimal price;
+
+    @ManyToOne(optional=false)
+    @JoinColumn(name="id", nullable=false, updatable=false)
     private Worker worker;
+
+    protected Price() {}
 
     public Price(Product product, Store store, Date date, BigDecimal price, Worker worker) {
         this.product = product;
@@ -36,14 +46,6 @@ public class Price implements BusinessDomain {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
     }
 
     public Store getStore() {
@@ -76,5 +78,13 @@ public class Price implements BusinessDomain {
 
     public void setWorker(Worker worker) {
         this.worker = worker;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 }

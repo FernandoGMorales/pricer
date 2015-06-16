@@ -11,8 +11,14 @@ public class Email {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
+
     private String local;
+
     private String domain;
+
+    @ManyToOne(optional=false)
+    @JoinColumn(name="id", nullable=false, updatable=false)
+    private Store store;
 
     public Long getId() {
         return id;

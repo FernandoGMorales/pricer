@@ -1,20 +1,25 @@
 package server.prizypricer.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created by Fernando G. Morales on 6/12/15.
  */
-@Entity
+@Entity(name = "city")
 public class City implements BusinessDomain {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
+
     private String name;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "city")
+    private Set<Adress> adresses;
+
+    @ManyToOne(optional=false)
+    @JoinColumn(name="id", nullable=false, updatable=false)
     private Country country;
 
     public Long getId() {
@@ -39,5 +44,13 @@ public class City implements BusinessDomain {
 
     public void setCountry(Country country) {
         this.country = country;
+    }
+
+    public Set<Adress> getAdresses() {
+        return adresses;
+    }
+
+    public void setAdresses(Set<Adress> adresses) {
+        this.adresses = adresses;
     }
 }

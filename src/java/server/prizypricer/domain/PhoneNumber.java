@@ -5,15 +5,22 @@ import javax.persistence.*;
 /**
  * Created by Fernando G. Morales on 6/12/15.
  */
-@Entity
+@Entity(name = "phone_number")
 public class PhoneNumber {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
+
     private String countryPrefix;
+
     private String cityPrefix;
+
     private String phoneNumber;
+
+    @ManyToOne(optional=false)
+    @JoinColumn(name="id", nullable=false, updatable=false)
+    private Store store;
 
     public Long getId() {
         return id;

@@ -1,23 +1,31 @@
 package server.prizypricer.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created by Fernando G. Morales on 6/15/15.
  */
-@Entity
+@Entity(name = "worker")
 public class Worker implements BusinessDomain {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
+
     private String name;
+
+    @OneToOne
     private Adress adress;
+
+    @OneToOne
     private Email email;
+
+    @OneToOne
     private PhoneNumber phoneNumber;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "worker")
+    private Set<Price> prices;
 
     public Long getId() {
         return id;
@@ -57,5 +65,13 @@ public class Worker implements BusinessDomain {
 
     public void setPhoneNumber(PhoneNumber phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public Set<Price> getPrices() {
+        return prices;
+    }
+
+    public void setPrices(Set<Price> prices) {
+        this.prices = prices;
     }
 }
